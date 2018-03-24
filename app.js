@@ -1,5 +1,8 @@
-const request = require('request');
 const yargs = require('yargs');
+const geocode = require('./geocode/geocode');
+const weather = require('./weather/weather');
+const request = require('request');
+
 
 const argv = yargs
     .option({
@@ -14,14 +17,25 @@ const argv = yargs
     .alias('help', 'h')
     .argv;
 
-console.log(argv);
-var address = encodeURIComponent(argv.address);
+// console.log(argv);
+geocode.geocodeAddress(argv.address, (errorMsg, results)=>{
+    if(errorMsg){
+        console.log(errorMsg);
+    }else{
+        console.log(results.address, results.latitude, results.longitude);
+        weather.getWeather(results.latitude, results.longitude, (errorMsg, weatherResults)=>{
+            if(errorMsg){
+                console.log(errorMsg);
+            }else{
+                console.log(`It's currenty ${weatherResults.temperature}. It feels like ${weatherResults.feelsLike}`);
+            }
+        });
+    }
+});
+
+// var lat = 34.032519;
+// var lng = -118.4801642;
 
 
-request({
-    url:`https://maps.googleapis.com/maps/api/geocode/json?address=${address}`,
-    json: true
-}, (error, response, body)=>{
-    console.log(`Address: ${body.results[0].formatted_address}`);
-    console.log(`Location: Lat ${body.results[0].geometry.location.lat}, Lng ${body.results[0].geometry.location.lng}`);
-})
+
+
