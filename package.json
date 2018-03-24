@@ -1,0 +1,23 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "An asynchronous non blocking app to communicate with google and a third party weather api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faisalaq/weather-app.git"
+  },
+  "author": "'Faisal'",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/faisalaq/weather-app/issues"
+  },
+  "homepage": "https://github.com/faisalaq/weather-app#readme",
+  "dependencies": {
+    "request": "^2.73.0",
+    "yargs": "^4.8.1"
+  }
+}
